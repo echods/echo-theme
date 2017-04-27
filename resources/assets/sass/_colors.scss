@@ -1,0 +1,24 @@
+// Brand colors
+$color-primary-light: #C5CAE9;
+$color-primary: #3F51B5;
+$color-primary-dark: #303F9F;
+$color-primary-text:   #212121;
+$color-secondary-text: #757575;
+$color-accent: #FFC107;
+
+// Regular
+$color-neutral-light: #BDBDBD;
+$color-neutral: $color-primary-text;
+$color-neutral-dark: $color-primary-text;
+$color-black: #000000;
+$color-white: #ffffff;
+
+// Warning
+$color-warning: #E64A19;
+
+// Brand to bootstrap mapping
+$brand-primary: $color-primary;
+$brand-info: $color-primary-light;
+$brand-success: $color-primary-dark;
+$brand-warning: $color-warning;
+$brand-danger: $color-accent;
