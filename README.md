@@ -41,12 +41,12 @@ npm run production
 ### Features
 * Normalized stylesheet for cross-browser compatibility using Normalize.css version 3 (IE8+)
 * Easy to customize
-* Bootstrap included and you add or remove any bootstrap components  
+* Bootstrap included and you can add or remove any bootstrap components  
 * Media Queries can be nested in each selector using SASS
 * SCSS with plenty of mixins ready to go (also bootstrap mixins included)
 * Webpack for processing all SASS, JavaScript and images.
 * Webpack to support the modern JavaScript ES6 (Classes , Modules .....)
-* Webpack generate **new files** for Styles and Javascript :
+* Webpack generates **new files** for Styles and Javascript :
   * Files With **different names** and the theme has a capability **to detect and load** the correct files each time.
   * So no more browser cache problem
   * **It's really cool feature**
