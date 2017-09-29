@@ -8,11 +8,11 @@ Isaac Castillo ( @ icemancast / echods.com )
 Echo Wordpress Template for use as a starting template for building custom themes. Uses SCSS and AutoPrefixr, HTML5 Bootstrap , and Webpack for all processing tasks.Tested up to WordPress 4.0
 
 ### Usage
-The theme is setup to use Webpack to compile SCSS. (with source maps), run it through AutoPrefixr, concatenate and minify JavaScript and have a support for ES6 , optimize images  , optimize fonts.
+The theme is setup to use Webpack to compile SCSS (with source maps), run it through AutoPrefixr, concatenate and minify JavaScript and have a support for ES6, optimize images, optimize fonts.
 
-**Echo Wordpress Template requires [Node.js](https://nodejs.org/)to run.**
+**Echo Wordpress Template requires [Node.js](https://nodejs.org/) to run.**
 
-First download/Clone the template
+First; download/clone the template
 
 ```
 git clone https://github.com/echods/echo-theme.git
@@ -30,7 +30,7 @@ echo-theme/resources/assets/
   echo-theme/resources/assets/img (Images)
   echo-theme/resources/assets/fonts (Fonts)
 ```
-For development environments your need to run to compile you styles and Javascript
+For development environments your need to run this command
 ```
 npm run watch
 ```
@@ -48,9 +48,9 @@ npm run production
 * Webpack to support the modern JavaScript ES6 (Classes , Modules .....)
 * Webpack generates **new files** for Styles and Javascript :
   * Files With **different names** and the theme has a capability **to detect and load** the correct files each time.
-  * So no more browser cache problem
-  * **It's really cool feature**
-* Much much more
+  * No more browser cache problem
+  * **This is a really cool feature**
+* & Much much more
 
 
 ### Contributing:
