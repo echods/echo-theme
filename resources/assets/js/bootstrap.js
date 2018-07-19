@@ -6,7 +6,7 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-require('bootstrap-sass');
+require('bootstrap');
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces

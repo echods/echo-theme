@@ -46,15 +46,17 @@ module.exports = {
                 }]
             })
         }, {
-            test: /\.(png|je?pg|gif)$/,
-            loaders: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: 'img/[name].[ext]'
-                    }
-                },
-                'img-loader'
-            ]
+          test: /\.(png|je?pg|gif)$/,
+          use: [
+            'file-loader',
+            {
+              loader: 'image-webpack-loader',
+              options: {
+                bypassOnDebug: true,
+                disable: true,
+              },
+            }
+          ]
         }, {
             test: /\.(eot|ttf|woff|woff2|svg)$/,
             loader: 'file-loader',
