@@ -1,3 +1,14 @@
 body {
     background-image: url('../img/test.jpg');
 }
+
+.test {
+  background-color: blue;
+  @include make-col-ready();
+  @include make-col(11);
+  padding: 2em;
+  
+  @include media-breakpoint-up(md) {  
+    @include make-col(4);
+  }
+}

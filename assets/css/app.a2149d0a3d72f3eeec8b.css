@@ -3105,4 +3105,23 @@ a.text-dark:hover,a.text-dark:focus {
 body {
   background-image: url(./../81505e1ebe1bf42f1a3ee5c6879049f4.jpg);
 }
+
+.test {
+  background-color: blue;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  flex: 0 0 91.66667%;
+  max-width: 91.66667%;
+  padding: 2em;
+}
+
+@media (min-width: 768px) {
+  .test {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+  }
+}
 /*# sourceMappingURL=app.a2149d0a3d72f3eeec8b.css.map*/

@@ -5,7 +5,7 @@
 Isaac Castillo ( @ icemancast / echods.com )
 
 ### Summary
-Echo Wordpress Template for use as a starting template for building custom themes. Uses SCSS and AutoPrefixr, HTML5 Bootstrap , and Webpack for all processing tasks.Tested up to WordPress 4.0
+Echo Wordpress Template for use as a starting template for building custom themes. Uses SCSS and AutoPrefixr, HTML5 Bootstrap 4 , and Webpack for all processing tasks.Tested up to WordPress 4.0
 
 ### Usage
 The theme is setup to use Webpack to compile SCSS (with source maps), run it through AutoPrefixr, concatenate and minify JavaScript and have a support for ES6, optimize images, optimize fonts.
@@ -41,9 +41,10 @@ npm run production
 ### Features
 * Normalized stylesheet for cross-browser compatibility using Normalize.css version 3 (IE8+)
 * Easy to customize
-* Bootstrap included and you can add or remove any bootstrap components  
+* Bootstrap 4 included and you can add or remove any bootstrap components  
 * Media Queries can be nested in each selector using SASS
 * SCSS with plenty of mixins ready to go (also bootstrap mixins included)
+* Example div written in _styles.scss for Bootstrap 4 syntax reference
 * Webpack for processing all SASS, JavaScript and images.
 * Webpack to support the modern JavaScript ES6 (Classes , Modules .....)
 * Webpack generates **new files** for Styles and Javascript :
