@@ -1,1 +1,15 @@
-node_modules/
+/node_modules
+/.idea
+/.vscode
+/.vagrant
+npm-debug.log
+yarn-error.log
+.env
+/.idea/
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
