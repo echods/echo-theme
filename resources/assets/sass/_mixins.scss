@@ -36,5 +36,5 @@
 
 @mixin font-sizing($size) {
     font-size: #{$size};
-    font-size: px-to-rem($size);
+    font-size: rem($size);
 }
