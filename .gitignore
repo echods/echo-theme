@@ -13,3 +13,10 @@ yarn-error.log
 .Trashes
 ehthumbs.db
 Thumbs.db
+plugins/*
+uploads/*
+debug.log
+
+#include everything within /uploads/rubbish/stuff/keep
+!plugins/echo-team/
+!plugins/echo-aweber/
