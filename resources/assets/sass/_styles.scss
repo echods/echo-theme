@@ -1,14 +1,13 @@
 body {
-    background-image: url('../img/test.jpg');
+    background-image: url('../img/echo-logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.test {
-  background-color: blue;
-  @include make-col-ready();
-  @include make-col(11);
-  padding: 2em;
-  
-  @include media-breakpoint-up(md) {  
-    @include make-col(4);
+.navbar-brand {
+  width:150px;
+  img {
+    width:100%;
   }
 }

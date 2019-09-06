@@ -67,7 +67,7 @@
                     );
                 endif;
             ?>
-        
+
         </div><!-- /.container-fluid -->
     </nav>
 

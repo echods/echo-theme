@@ -4,21 +4,18 @@ import bootstrap from './bootstrap'; // Load plugins needed here
 
     'use strict';
 
-    setTimeout(() => {
-        console.log("ES6 FTW");
-    }, 1000);
 
-    class Test {
+    class AppClass {
         constructor(properties) {
             this.properties = properties;
         }
 
-        again() {
-            return 'we are inside a classes';
+        init() {
+            return 'Application Init';
         }
     }
 
-    var test = new Test;
-    console.log(test.again());
+    var appInit = new AppClass;
+    console.log(appInit.init());
 
 })(jQuery);
