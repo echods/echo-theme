@@ -17,6 +17,6 @@ plugins/*
 uploads/*
 debug.log
 
-#include everything within /uploads/rubbish/stuff/keep
+# include only our plugins
 !plugins/echo-team/
 !plugins/echo-aweber/

@@ -2,9 +2,10 @@ let webpack = require('webpack');
 let path = require('path');
 let glob = require('glob');
 let PurifyCSSPlugin = require('purifycss-webpack');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
+// let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let CleanWebpackPlugin = require('clean-webpack-plugin');
 var inProduction = (process.env.NODE_ENV === 'production');
+let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = {
@@ -27,7 +28,7 @@ module.exports = {
             use: {
                 loader: 'babel-loader',
                 options: {
-                    presets: ["es2015", "es2016", "es2017"]
+                    presets: ["@babel/preset-env"]
                 }
             }
         }, {
