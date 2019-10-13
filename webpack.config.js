@@ -2,11 +2,9 @@ let webpack = require('webpack');
 let path = require('path');
 let glob = require('glob');
 let PurifyCSSPlugin = require('purifycss-webpack');
-// let ExtractTextPlugin = require('extract-text-webpack-plugin');
-let CleanWebpackPlugin = require('clean-webpack-plugin');
+let { CleanWebpackPlugin } = require('clean-webpack-plugin');
 var inProduction = (process.env.NODE_ENV === 'production');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
 
 module.exports = {
     entry: {
@@ -31,22 +29,24 @@ module.exports = {
                     presets: ["@babel/preset-env"]
                 }
             }
-        }, {
+        },
+        {
             test: /\.s[ac]ss$/,
-            use: ExtractTextPlugin.extract({
-                use: [{
-                    loader: 'css-loader',
+            use: [
+                {
+                    loader: MiniCssExtractPlugin.loader,
                     options: {
-                        sourceMap: true
-                    }
-                }, {
-                    loader: 'sass-loader',
-                    options: {
-                        sourceMap: true
-                    }
-                }]
-            })
-        }, {
+                        // you can specify a publicPath here
+                        // by default it uses publicPath in webpackOptions.output
+                        publicPath: '../',
+                        hmr: process.env.NODE_ENV === 'development',
+                    },
+                },
+                { loader: 'css-loader', options: { sourceMap: true, importLoaders: 1 } },
+                { loader: 'sass-loader', options: { sourceMap: true } },
+            ]
+        },
+        {
           test: /\.(png|je?pg|gif)$/,
           use: [
             'file-loader',
@@ -58,7 +58,8 @@ module.exports = {
               },
             }
           ]
-        }, {
+        },
+        {
             test: /\.(eot|ttf|woff|woff2|svg)$/,
             loader: 'file-loader',
             options: {
@@ -68,7 +69,13 @@ module.exports = {
     },
 
     plugins: [
-        new ExtractTextPlugin('css/[name].[chunkhash].css'),
+
+        new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // all options are optional
+            filename: 'css/[name].[chunkhash].css',
+            ignoreOrder: false, // Enable to remove warnings about conflicting order
+        }),
 
         new webpack.LoaderOptionsPlugin({
             minimize: inProduction
@@ -80,10 +87,8 @@ module.exports = {
             // minimize: inProduction
         }),
 
-        new CleanWebpackPlugin(['assets/js', 'assets/css'], {
-            root: __dirname,
+        new CleanWebpackPlugin({
             verbose: true,
-            dry: false
         }),
 
         function() {
