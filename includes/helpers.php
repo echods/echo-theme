@@ -5,9 +5,14 @@
  *
  * Loading manifest for latest styles for cache busting
  */
-function latestMedia() {
+function getManifest() {
     $manifest = file_get_contents(get_template_directory() . '/assets/manifest.json');
-    $manifest = json_decode($manifest);
+    return json_decode($manifest);
+}
+
+function latestMedia() {
+
+    $manifest = getManifest();
 
     $js = array_filter($manifest->app, "separateJs");
     $css = array_filter($manifest->app, "separateCss");
@@ -15,8 +20,12 @@ function latestMedia() {
     $js = array_values($js);
     $css = array_values($css);
 
-    // return array_map('separateAssets', $manifest->app);
     return ['js' => $js[0], 'css' => $css[0]];
+}
+
+function latestVendorMedia() {
+    $manifest = getManifest();
+    return $manifest->vendor[0];
 }
 
 /*

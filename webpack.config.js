@@ -8,8 +8,12 @@ let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
+        vendor: [
+            './resources/assets/js/vendor/jsFileName1.js', // Use to combine js files that are not export
+            './resources/assets/js/vendor/jsFileName2.js',
+        ],
         app: [
-            './resources/assets/js/main.js',
+            './resources/assets/js/app.js',
             './resources/assets/sass/app.scss',
         ]
     },
