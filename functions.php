@@ -211,6 +211,16 @@ function echo_styles() {
 add_action( 'wp_enqueue_scripts', 'echo_styles' );
 
 /**
+ * Function to return theme image file path
+ *
+ * @since Echo 1.0
+ */
+function echo_image($image) {
+    $directory = get_template_directory_uri();
+    return "{$directory}/assets/img/{$image}";
+}
+
+/**
  * Adds custom classes to the array of body classes.
  *
  * @since Echo 1.0
