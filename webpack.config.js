@@ -1,16 +1,23 @@
-let webpack = require('webpack');
-let path = require('path');
-let glob = require('glob');
-let PurifyCSSPlugin = require('purifycss-webpack');
-let { CleanWebpackPlugin } = require('clean-webpack-plugin');
-var inProduction = (process.env.NODE_ENV === 'production');
-let MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
+const path = require('path');
+const glob = require('glob');
+const PurifyCSSPlugin = require('purifycss-webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const inProduction = (process.env.NODE_ENV === 'production');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
         vendor: [
-            './resources/assets/js/vendor/jsFileName1.js', // Use to combine js files that are not export
-            './resources/assets/js/vendor/jsFileName2.js',
+            './resources/assets/js/vendor/bootstrap.min.js',
+            './resources/assets/js/vendor/bootstrap-hover-dropdown.min.js',
+            './resources/assets/js/vendor/jquery.easing.min.js',
+            './resources/assets/js/vendor/jquery.validate.min.js',
+            './resources/assets/js/vendor/jquery.flexslider-min.js',
+            './resources/assets/js/vendor/easyResponsiveTabs.js',
+            './resources/assets/js/vendor/owl.carousel.js',
+            './resources/assets/js/vendor/custom.js',
         ],
         app: [
             './resources/assets/js/app.js',
@@ -74,6 +81,10 @@ module.exports = {
 
     plugins: [
 
+        new CopyPlugin([
+          { from: './resources/assets/img', to: './img' },
+        ]),
+
         new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // all options are optional
@@ -99,7 +110,7 @@ module.exports = {
             this.plugin('done', stats => {
                 require('fs').writeFileSync(
                     path.join(__dirname, 'assets/manifest.json'),
-            JSON.stringify(stats.toJson().assetsByChunkName)
+                    JSON.stringify(stats.toJson().assetsByChunkName)
                 )
             })
         }
