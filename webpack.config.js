@@ -10,14 +10,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: {
         vendor: [
-            './resources/assets/js/vendor/bootstrap.min.js',
-            './resources/assets/js/vendor/bootstrap-hover-dropdown.min.js',
-            './resources/assets/js/vendor/jquery.easing.min.js',
-            './resources/assets/js/vendor/jquery.validate.min.js',
-            './resources/assets/js/vendor/jquery.flexslider-min.js',
-            './resources/assets/js/vendor/easyResponsiveTabs.js',
-            './resources/assets/js/vendor/owl.carousel.js',
-            './resources/assets/js/vendor/custom.js',
+            './resources/assets/js/vendor/fileName1.js',
+            './resources/assets/js/vendor/fileName2.js',
         ],
         app: [
             './resources/assets/js/app.js',
@@ -81,10 +75,6 @@ module.exports = {
 
     plugins: [
 
-        new CopyPlugin([
-          { from: './resources/assets/img', to: './img' },
-        ]),
-
         new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // all options are optional
@@ -105,6 +95,10 @@ module.exports = {
         new CleanWebpackPlugin({
             verbose: true,
         }),
+
+        new CopyPlugin([
+          { from: './resources/assets/img', to: './img' },
+        ]),
 
         function() {
             this.plugin('done', stats => {
