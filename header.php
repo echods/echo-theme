@@ -34,36 +34,26 @@
 </head>
 
 <body <?php body_class(); ?>>
-    <a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'echods' ); ?></a>
-    <nav class="navbar navbar-default">
+    <nav class="echo-navbar navbar navbar-expand-md navbar-light bg-light" role="navigation">
         <div class="container-fluid">
-
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#wp-navbar" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="/"><img src="<?php echo get_template_directory_uri() ?>/assets/img/logo.png"></a>
-            </div>
-
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="<?= esc_url( home_url( '/' ) ); ?>">
+                <?php bloginfo( 'name' ); ?>
+            </a>
             <?php
-                if ( has_nav_menu( 'primary' ) ) :
-                    wp_nav_menu( array(
-                        'menu'              => 'primary',
-                        'theme_location'    => 'primary',
-                        'depth'             => 2,
-                        'container'         => 'div',
-                        'container_class'   => 'collapse navbar-collapse',
-                        'container_id'      => 'wp-navbar',
-                        'menu_class'        => 'nav navbar-nav navbar-right',
-                        'fallback_cb'       => 'wp_bootstrap_navwalker::fallback',
-                        'walker'            => new wp_bootstrap_navwalker())
-                    );
-                endif;
+                wp_nav_menu( array(
+                    'theme_location'    => 'primary',
+                    'depth'             => 2,
+                    'container'         => 'div',
+                    'container_class'   => 'collapse navbar-collapse',
+                    'container_id'      => 'bs-example-navbar-collapse-1',
+                    'menu_class'        => 'nav navbar-nav',
+                    'fallback_cb'       => 'WP_Bootstrap_Navwalker::fallback',
+                    'walker'            => new WP_Bootstrap_Navwalker(),
+                ) );
             ?>
-
-        </div><!-- /.container-fluid -->
+        </div>
     </nav>

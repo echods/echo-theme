@@ -3,6 +3,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const inProduction = (process.env.NODE_ENV === 'production');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') ? 'production' : 'development',
@@ -77,6 +78,8 @@ module.exports = {
             verbose: true,
         }),
 
+        new CopyPlugin([ { from: './resources/assets/img', to: './img' } ]),
+        
         function() {
             this.plugin('done', stats => {
                 require('fs').writeFileSync(

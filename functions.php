@@ -13,6 +13,11 @@
 require get_template_directory() . '/includes/helpers.php';
 
 /**
+ * Custom template tags for this theme.
+ */
+require get_template_directory() . '/includes/template-tags.php';
+
+/**
  * Echo only works in WordPress 4.4 or later.
  */
 if ( version_compare( $GLOBALS['wp_version'], '4.4-alpha', '<' ) ) {
@@ -250,10 +255,7 @@ function echo_body_classes( $classes ) {
 }
 add_filter( 'body_class', 'echo_body_classes' );
 
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/includes/template-tags.php';
+
 
 /**
  * Customizer additions.

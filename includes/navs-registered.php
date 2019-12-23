@@ -4,4 +4,5 @@
 register_nav_menus( array(
     'primary' => __( 'Primary Menu', 'echo' ),
     'social'  => __( 'Social Links Menu', 'echo' ),
+    'footer'  => __( 'Footer Menu', 'echo' ),
 ) );
