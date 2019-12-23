@@ -9,9 +9,6 @@
  * @since Echods 1.0
  */
 ?>
-
-	</div><!-- .container-fluid -->
-
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<?php if ( has_nav_menu( 'primary' ) ) : ?>
 			<nav class="main-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Primary Menu', 'echods' ); ?>">
@@ -50,7 +47,6 @@
 			<span class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></span>
 		</div><!-- .site-info -->
 	</footer><!-- .site-footer -->
-
-<?php wp_footer(); ?>
+	<?php wp_footer(); ?>
 </body>
 </html>

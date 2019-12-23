@@ -14,7 +14,7 @@
     "aos": "^2.3.4",
     "axios": "^0.19.0",
     "babel-loader": "^8.0.6",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.4.1",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
@@ -35,7 +35,7 @@
   },
   "scripts": {
     "dev": "webpack",
-    "production": "NODE_ENV=production webpack",
+    "production": "SET NODE_ENV=production & webpack",
     "watch": "npm run dev -- --watch"
   },
   "repository": {

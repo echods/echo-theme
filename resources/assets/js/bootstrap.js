@@ -1,4 +1,4 @@
-window._ = require('lodash');
+// window._ = require('lodash');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -22,10 +22,10 @@ require('bootstrap');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+// window.axios = require('axios');
 
 /**
  * Other libraries
  * Load any additional libraries needed below.
  */
-require('sweetalert');
+// require('sweetalert');

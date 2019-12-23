@@ -34,9 +34,7 @@
 </head>
 
 <body <?php body_class(); ?>>
-
     <a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'echods' ); ?></a>
-
     <nav class="navbar navbar-default">
         <div class="container-fluid">
 
@@ -52,7 +50,6 @@
             </div>
 
             <?php
-
                 if ( has_nav_menu( 'primary' ) ) :
                     wp_nav_menu( array(
                         'menu'              => 'primary',
@@ -70,5 +67,3 @@
 
         </div><!-- /.container-fluid -->
     </nav>
-
-    <div class="container">

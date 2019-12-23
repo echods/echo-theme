@@ -16,6 +16,6 @@ import bootstrap from './bootstrap'; // Load plugins needed here
     }
 
     var appInit = new AppClass;
-    console.log(appInit.init());
+    console.log(appInit.init()); 
 
 })(jQuery);

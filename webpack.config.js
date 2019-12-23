@@ -1,18 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
-const glob = require('glob');
-const PurifyCSSPlugin = require('purifycss-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const inProduction = (process.env.NODE_ENV === 'production');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
+    mode: (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') ? 'production' : 'development',
     entry: {
-        vendor: [
-            './resources/assets/js/vendor/fileName1.js',
-            './resources/assets/js/vendor/fileName2.js',
-        ],
         app: [
             './resources/assets/js/app.js',
             './resources/assets/sass/app.scss',
@@ -21,7 +15,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './assets'),
         filename: 'js/[name].[chunkhash].js',
-        publicPath: './../'
     },
     devtool: 'source-map',
     module: {
@@ -38,37 +31,31 @@ module.exports = {
         {
             test: /\.s[ac]ss$/,
             use: [
-                {
-                    loader: MiniCssExtractPlugin.loader,
-                    options: {
-                        // you can specify a publicPath here
-                        // by default it uses publicPath in webpackOptions.output
-                        publicPath: '../',
-                        hmr: process.env.NODE_ENV === 'development',
-                    },
-                },
-                { loader: 'css-loader', options: { sourceMap: true, importLoaders: 1 } },
-                { loader: 'sass-loader', options: { sourceMap: true } },
+                { loader: MiniCssExtractPlugin.loader},
+                { loader: 'css-loader' },
+                { loader: 'sass-loader'}
             ]
         },
         {
-          test: /\.(png|je?pg|gif)$/,
-          use: [
-            'file-loader',
+          test: /\.(gif|png|jpe?g|svg)$/i,
+            use: [
             {
-              loader: 'image-webpack-loader',
-              options: {
-                bypassOnDebug: true,
-                disable: true,
-              },
-            }
-          ]
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: 'img',
+                    publicPath: '../img',
+                }
+            },
+            ],
         },
         {
             test: /\.(eot|ttf|woff|woff2|svg)$/,
             loader: 'file-loader',
             options: {
-                name: 'fonts/[name].[ext]'
+                name: '[name].[ext]',
+                outputPath: 'fonts',
+                publicPath: '../fonts',
             }
         }]
     },
@@ -86,19 +73,9 @@ module.exports = {
             minimize: inProduction
         }),
 
-        new PurifyCSSPlugin({
-            // Give paths to parse for rules. These should be absolute!
-            paths: glob.sync(path.join(__dirname, '**/*.php')),
-            // minimize: inProduction
-        }),
-
         new CleanWebpackPlugin({
             verbose: true,
         }),
-
-        new CopyPlugin([
-          { from: './resources/assets/img', to: './img' },
-        ]),
 
         function() {
             this.plugin('done', stats => {
@@ -114,6 +91,7 @@ module.exports = {
 
 /* Run for production only */
 if (inProduction) {
+    console.log("done")
     module.exports.plugins.push(
         new webpack.optimize.UglifyJsPlugin()
     );
