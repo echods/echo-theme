@@ -4,7 +4,7 @@
   "description": "Echods WP theme starter for wordpress projects",
   "main": "index.js",
   "dependencies": {
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.14.3",
     "requirejs": "^2.3.2"
   },
