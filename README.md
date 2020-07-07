@@ -8,7 +8,7 @@ Isaac Castillo ( @ icemancast / echods.com )
 Echo Wordpress Template for use as a starting template for building custom themes. Uses SCSS and AutoPrefixr, HTML5 Bootstrap 4 , and Webpack for all processing tasks.Tested up to WordPress 4.0
 
 ## Usage
-The theme is setup to use Webpack to compile SCSS (with source maps), run it through AutoPrefixr, concatenate and minify JavaScript and have a support for ES6, optimize images, optimize fonts.
+The theme is setup to use Laravel mix to compile SCSS (with source maps), run it through AutoPrefixr, concatenate and minify JavaScript and have a support for ES6, optimize images, optimize fonts.
 
 **Echo Wordpress Template requires [Node.js](https://nodejs.org/) to run.**
 
@@ -20,7 +20,7 @@ git clone https://github.com/echods/echo-theme.git
 
 ```sh
 $ cd echo-theme
-$ npm install
+$ npm install or yarn
 ```
 
 Then change your resources

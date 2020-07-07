@@ -7,64 +7,111 @@
  * It is used to display a page when nothing more specific matches a query.
  * E.g., it puts together the home page when no home.php file exists.
  *
- * @link http://codex.wordpress.org/Template_Hierarchy
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
  * @package WordPress
- * @subpackage Echods
- * @since Echods 1.0
+ * @subpackage Twenty_Twenty
+ * @since Twenty Twenty 1.0
  */
 
-get_header(); ?>
+get_header();
+?>
 
-    <div class="row">
+<main id="site-content" role="main">
 
-        <?php if ( get_header_image() ) : ?>
-            <?php get_template_part('template-parts', 'header-image'); ?>
-        <?php endif; // End header image check. ?>
+	<?php
 
-        <main id="main" class="site-main col-md-9" role="main">
+	$archive_title    = '';
+	$archive_subtitle = '';
 
-        <?php if ( have_posts() ) : ?>
+	if ( is_search() ) {
+		global $wp_query;
 
-            <?php if ( is_home() && ! is_front_page() ) : ?>
-                <header>
-                    <h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-                </header>
-            <?php endif; ?>
+		$archive_title = sprintf(
+			'%1$s %2$s',
+			'<span class="color-accent">' . __( 'Search:', 'twentytwenty' ) . '</span>',
+			'&ldquo;' . get_search_query() . '&rdquo;'
+		);
 
-            <?php
-            // Start the loop.
-            while ( have_posts() ) : the_post();
+		if ( $wp_query->found_posts ) {
+			$archive_subtitle = sprintf(
+				/* translators: %s: Number of search results. */
+				_n(
+					'We found %s result for your search.',
+					'We found %s results for your search.',
+					$wp_query->found_posts,
+					'twentytwenty'
+				),
+				number_format_i18n( $wp_query->found_posts )
+			);
+		} else {
+			$archive_subtitle = __( 'We could not find any results for your search. You can give it another try through the search form below.', 'twentytwenty' );
+		}
+	} elseif ( ! is_home() ) {
+		$archive_title    = get_the_archive_title();
+		$archive_subtitle = get_the_archive_description();
+	}
 
-                /*
-                 * Include the Post-Format-specific template for the content.
-                 * If you want to override this in a child theme, then include a file
-                 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-                 */
-                get_template_part( 'template-parts/content', get_post_format() );
+	if ( $archive_title || $archive_subtitle ) {
+		?>
 
-            // End the loop.
-            endwhile;
+		<header class="archive-header has-text-align-center header-footer-group">
 
-            // Previous/next page navigation.
-            the_posts_pagination( array(
-                'prev_text'          => __( 'Previous page', 'twentysixteen' ),
-                'next_text'          => __( 'Next page', 'twentysixteen' ),
-                'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentysixteen' ) . ' </span>',
-            ) );
+			<div class="archive-header-inner section-inner medium">
 
-        // If no content, include the "No posts found" template.
-        else :
-            get_template_part( 'template-parts/content', 'none' );
+				<?php if ( $archive_title ) { ?>
+					<h1 class="archive-title"><?php echo wp_kses_post( $archive_title ); ?></h1>
+				<?php } ?>
 
-        endif;
-        ?>
+				<?php if ( $archive_subtitle ) { ?>
+					<div class="archive-subtitle section-inner thin max-percentage intro-text"><?php echo wp_kses_post( wpautop( $archive_subtitle ) ); ?></div>
+				<?php } ?>
 
-        </main>
+			</div><!-- .archive-header-inner -->
 
-        <div class="col-md-3">
-            <?php get_sidebar(); ?>
-        </div>
+		</header><!-- .archive-header -->
 
-    </div>
-<?php get_footer(); ?>
+		<?php
+	}
+
+	if ( have_posts() ) {
+
+		$i = 0;
+
+		while ( have_posts() ) {
+			$i++;
+			if ( $i > 1 ) {
+				echo '<hr class="post-separator styled-separator is-style-wide section-inner" aria-hidden="true" />';
+			}
+			the_post();
+
+			get_template_part( 'template-parts/content', get_post_type() );
+
+		}
+	} elseif ( is_search() ) {
+		?>
+
+		<div class="no-search-results-form section-inner thin">
+
+			<?php
+			get_search_form(
+				array(
+					'label' => __( 'search again', 'twentytwenty' ),
+				)
+			);
+			?>
+
+		</div><!-- .no-search-results -->
+
+		<?php
+	}
+	?>
+
+	<?php get_template_part( 'template-parts/pagination' ); ?>
+
+</main><!-- #site-content -->
+
+<?php get_template_part( 'template-parts/footer-menus-widgets' ); ?>
+
+<?php
+get_footer();
