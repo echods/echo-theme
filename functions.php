@@ -17,9 +17,11 @@ require get_template_directory() . '/includes/helpers.php';
 /**
  * Echo only works in WordPress 5.4.2 or later.
  */
-if ( version_compare( $GLOBALS['wp_version'], '5.4.2-alpha', '<' ) ) {
-	require get_template_directory() . 'includes/lib/back-compat.php';
-}
+
+
+// if ( version_compare( $GLOBALS['wp_version'], '5.4.2-alpha', '<' ) ) {
+// 	require get_template_directory() . 'includes/lib/back-compat.php';
+// }
 
 if ( ! function_exists( 'echo_setup' ) ) :
 /**
@@ -252,4 +254,5 @@ add_filter( 'widget_tag_cloud_args', 'echo_widget_tag_cloud_args' );
  * Walker class include.
  */
 require get_template_directory() . '/includes/BootstrapWalker.php';
+require get_template_directory() . '/twenty-functions.php';
 
