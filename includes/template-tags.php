@@ -1,254 +1,257 @@
 <?php
 /**
- * Custom Echo template tags
- *
- * Eventually, some of the functionality here could be replaced by core features.
+ * Custom template tags for this theme
  *
  * @package WordPress
- * @subpackage Echo
- * @since Echo 2.0
+ * @subpackage Twenty_Twenty_One
+ * @since Twenty Twenty-One 1.0
  */
 
-if ( ! function_exists( 'echo_entry_meta' ) ) :
-/**
- * Prints HTML with meta information for the categories, tags.
- *
- * Create your own echo_entry_meta() function to override in a child theme.
- *
- * @since Echo 2.0
- */
-function echo_entry_meta() {
-	if ( 'post' === get_post_type() ) {
-		$author_avatar_size = apply_filters( 'echo_author_avatar_size', 49 );
-		printf( '<span class="byline"><span class="author vcard">%1$s<span class="screen-reader-text">%2$s </span> <a class="url fn n" href="%3$s">%4$s</a></span></span>',
-			get_avatar( get_the_author_meta( 'user_email' ), $author_avatar_size ),
-			_x( 'Author', 'Used before post author name.', 'echods' ),
-			esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-			get_the_author()
+if ( ! function_exists( 'twenty_twenty_one_posted_on' ) ) {
+	/**
+	 * Prints HTML with meta information for the current post-date/time.
+	 *
+	 * @since Twenty Twenty-One 1.0
+	 *
+	 * @return void
+	 */
+	function twenty_twenty_one_posted_on() {
+		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
+
+		$time_string = sprintf(
+			$time_string,
+			esc_attr( get_the_date( DATE_W3C ) ),
+			esc_html( get_the_date() )
 		);
-	}
-
-	if ( in_array( get_post_type(), array( 'post', 'attachment' ) ) ) {
-		echo_entry_date();
-	}
-
-	$format = get_post_format();
-	if ( current_theme_supports( 'post-formats', $format ) ) {
-		printf( '<span class="entry-format">%1$s<a href="%2$s">%3$s</a></span>',
-			sprintf( '<span class="screen-reader-text">%s </span>', _x( 'Format', 'Used before post format.', 'echods' ) ),
-			esc_url( get_post_format_link( $format ) ),
-			get_post_format_string( $format )
+		echo '<span class="posted-on">';
+		printf(
+			/* translators: %s: publish date. */
+			esc_html__( 'Published %s', 'twentytwentyone' ),
+			$time_string // phpcs:ignore WordPress.Security.EscapeOutput
 		);
-	}
-
-	if ( 'post' === get_post_type() ) {
-		echo_entry_taxonomies();
-	}
-
-	if ( ! is_singular() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-		echo '<span class="comments-link">';
-		comments_popup_link( sprintf( __( 'Leave a comment<span class="screen-reader-text"> on %s</span>', 'echods' ), get_the_title() ) );
 		echo '</span>';
 	}
 }
-endif;
 
-if ( ! function_exists( 'echo_entry_date' ) ) :
-/**
- * Prints HTML with date information for current post.
- *
- * Create your own echo_entry_date() function to override in a child theme.
- *
- * @since Echo 2.0
- */
-function echo_entry_date() {
-	$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
-
-	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-		$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
-	}
-
-	$time_string = sprintf( $time_string,
-		esc_attr( get_the_date( 'c' ) ),
-		get_the_date(),
-		esc_attr( get_the_modified_date( 'c' ) ),
-		get_the_modified_date()
-	);
-
-	printf( '<span class="posted-on"><span class="screen-reader-text">%1$s </span><a href="%2$s" rel="bookmark">%3$s</a></span>',
-		_x( 'Posted on', 'Used before publish date.', 'echods' ),
-		esc_url( get_permalink() ),
-		$time_string
-	);
-}
-endif;
-
-if ( ! function_exists( 'echo_entry_taxonomies' ) ) :
-/**
- * Prints HTML with category and tags for current post.
- *
- * Create your own echo_entry_taxonomies() function to override in a child theme.
- *
- * @since Echo 2.0
- */
-function echo_entry_taxonomies() {
-	$categories_list = get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'echods' ) );
-	if ( $categories_list && echo_categorized_blog() ) {
-		printf( '<span class="cat-links"><span class="screen-reader-text">%1$s </span>%2$s</span>',
-			_x( 'Categories', 'Used before category names.', 'echods' ),
-			$categories_list
-		);
-	}
-
-	$tags_list = get_the_tag_list( '', _x( ', ', 'Used between list items, there is a space after the comma.', 'echods' ) );
-	if ( $tags_list ) {
-		printf( '<span class="tags-links"><span class="screen-reader-text">%1$s </span>%2$s</span>',
-			_x( 'Tags', 'Used before tag names.', 'echods' ),
-			$tags_list
-		);
-	}
-}
-endif;
-
-if ( ! function_exists( 'echo_post_thumbnail' ) ) :
-/**
- * Displays an optional post thumbnail.
- *
- * Wraps the post thumbnail in an anchor element on index views, or a div
- * element when on single views.
- *
- * Create your own echo_post_thumbnail() function to override in a child theme.
- *
- * @since Echo 2.0
- */
-function echo_post_thumbnail() {
-	if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
-		return;
-	}
-
-	if ( is_singular() ) :
-	?>
-
-	<div class="post-thumbnail">
-		<?php the_post_thumbnail(); ?>
-	</div><!-- .post-thumbnail -->
-
-	<?php else : ?>
-
-	<a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true">
-		<?php the_post_thumbnail( 'post-thumbnail', array( 'alt' => the_title_attribute( 'echo=0' ) ) ); ?>
-	</a>
-
-	<?php endif; // End is_singular()
-}
-endif;
-
-if ( ! function_exists( 'echo_excerpt' ) ) :
+if ( ! function_exists( 'twenty_twenty_one_posted_by' ) ) {
 	/**
-	 * Displays the optional excerpt.
+	 * Prints HTML with meta information about theme author.
 	 *
-	 * Wraps the excerpt in a div element.
+	 * @since Twenty Twenty-One 1.0
 	 *
-	 * Create your own echo_excerpt() function to override in a child theme.
-	 *
-	 * @since Echo 2.0
-	 *
-	 * @param string $class Optional. Class string of the div element. Defaults to 'entry-summary'.
+	 * @return void
 	 */
-	function echo_excerpt( $class = 'entry-summary' ) {
-		$class = esc_attr( $class );
-
-		if ( has_excerpt() || is_search() ) : ?>
-			<div class="<?php echo $class; ?>">
-				<?php the_excerpt(); ?>
-			</div><!-- .<?php echo $class; ?> -->
-		<?php endif;
-	}
-endif;
-
-if ( ! function_exists( 'echo_excerpt_more' ) && ! is_admin() ) :
-/**
- * Replaces "[...]" (appended to automatically generated excerpts) with ... and
- * a 'Continue reading' link.
- *
- * Create your own echo_excerpt_more() function to override in a child theme.
- *
- * @since Echo 2.0
- *
- * @return string 'Continue reading' link prepended with an ellipsis.
- */
-function echo_excerpt_more() {
-	$link = sprintf( '<a href="%1$s" class="more-link">%2$s</a>',
-		esc_url( get_permalink( get_the_ID() ) ),
-		/* translators: %s: Name of current post */
-		sprintf( __( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'echods' ), get_the_title( get_the_ID() ) )
-	);
-	return ' &hellip; ' . $link;
-}
-add_filter( 'excerpt_more', 'echo_excerpt_more' );
-endif;
-
-/**
- * Determines whether blog/site has more than one category.
- *
- * Create your own echo_categorized_blog() function to override in a child theme.
- *
- * @since Echo 2.0
- *
- * @return bool True if there is more than one category, false otherwise.
- */
-function echo_categorized_blog() {
-	if ( false === ( $all_the_cool_cats = get_transient( 'echo_categories' ) ) ) {
-		// Create an array of all the categories that are attached to posts.
-		$all_the_cool_cats = get_categories( array(
-			'fields'     => 'ids',
-			// We only need to know if there is more than one category.
-			'number'     => 2,
-		) );
-
-		// Count the number of categories that are attached to the posts.
-		$all_the_cool_cats = count( $all_the_cool_cats );
-
-		set_transient( 'echo_categories', $all_the_cool_cats );
-	}
-
-	if ( $all_the_cool_cats > 1 ) {
-		// This blog has more than 1 category so echo_categorized_blog should return true.
-		return true;
-	} else {
-		// This blog has only 1 category so echo_categorized_blog should return false.
-		return false;
+	function twenty_twenty_one_posted_by() {
+		if ( ! get_the_author_meta( 'description' ) && post_type_supports( get_post_type(), 'author' ) ) {
+			echo '<span class="byline">';
+			printf(
+				/* translators: %s author name. */
+				esc_html__( 'By %s', 'twentytwentyone' ),
+				'<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="author">' . esc_html( get_the_author() ) . '</a>'
+			);
+			echo '</span>';
+		}
 	}
 }
 
-/**
- * Flushes out the transients used in echo_categorized_blog().
- *
- * @since Echo 2.0
- */
-function echo_category_transient_flusher() {
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		return;
-	}
-	// Like, beat it. Dig?
-	delete_transient( 'echo_categories' );
-}
-add_action( 'edit_category', 'echo_category_transient_flusher' );
-add_action( 'save_post',     'echo_category_transient_flusher' );
+if ( ! function_exists( 'twenty_twenty_one_entry_meta_footer' ) ) {
+	/**
+	 * Prints HTML with meta information for the categories, tags and comments.
+	 * Footer entry meta is displayed differently in archives and single posts.
+	 *
+	 * @since Twenty Twenty-One 1.0
+	 *
+	 * @return void
+	 */
+	function twenty_twenty_one_entry_meta_footer() {
 
-if ( ! function_exists( 'echo_the_custom_logo' ) ) :
-/**
- * Displays the optional custom logo.
- *
- * Does nothing if the custom logo is not available.
- *
- * @since Echods 1.2
- */
-function echo_the_custom_logo() {
-	if ( function_exists( 'the_custom_logo' ) ) {
-        $custom_logo_id = get_theme_mod( 'custom_logo' );
-        $image = wp_get_attachment_image_src( $custom_logo_id , ‘full’ );
-        return $image[0];
+		// Early exit if not a post.
+		if ( 'post' !== get_post_type() ) {
+			return;
+		}
+
+		// Hide meta information on pages.
+		if ( ! is_single() ) {
+
+			if ( is_sticky() ) {
+				echo '<p>' . esc_html_x( 'Featured post', 'Label for sticky posts', 'twentytwentyone' ) . '</p>';
+			}
+
+			$post_format = get_post_format();
+			if ( 'aside' === $post_format || 'status' === $post_format ) {
+				echo '<p><a href="' . esc_url( get_permalink() ) . '">' . twenty_twenty_one_continue_reading_text() . '</a></p>'; // phpcs:ignore WordPress.Security.EscapeOutput
+			}
+
+			// Posted on.
+			twenty_twenty_one_posted_on();
+
+			// Edit post link.
+			edit_post_link(
+				sprintf(
+					/* translators: %s: Name of current post. Only visible to screen readers. */
+					esc_html__( 'Edit %s', 'twentytwentyone' ),
+					'<span class="screen-reader-text">' . get_the_title() . '</span>'
+				),
+				'<span class="edit-link">',
+				'</span><br>'
+			);
+
+			if ( has_category() || has_tag() ) {
+
+				echo '<div class="post-taxonomies">';
+
+				/* translators: used between list items, there is a space after the comma. */
+				$categories_list = get_the_category_list( __( ', ', 'twentytwentyone' ) );
+				if ( $categories_list ) {
+					printf(
+						/* translators: %s: list of categories. */
+						'<span class="cat-links">' . esc_html__( 'Categorized as %s', 'twentytwentyone' ) . ' </span>',
+						$categories_list // phpcs:ignore WordPress.Security.EscapeOutput
+					);
+				}
+
+				/* translators: used between list items, there is a space after the comma. */
+				$tags_list = get_the_tag_list( '', __( ', ', 'twentytwentyone' ) );
+				if ( $tags_list ) {
+					printf(
+						/* translators: %s: list of tags. */
+						'<span class="tags-links">' . esc_html__( 'Tagged %s', 'twentytwentyone' ) . '</span>',
+						$tags_list // phpcs:ignore WordPress.Security.EscapeOutput
+					);
+				}
+				echo '</div>';
+			}
+		} else {
+
+			echo '<div class="posted-by">';
+			// Posted on.
+			twenty_twenty_one_posted_on();
+			// Posted by.
+			twenty_twenty_one_posted_by();
+			// Edit post link.
+			edit_post_link(
+				sprintf(
+					/* translators: %s: Name of current post. Only visible to screen readers. */
+					esc_html__( 'Edit %s', 'twentytwentyone' ),
+					'<span class="screen-reader-text">' . get_the_title() . '</span>'
+				),
+				'<span class="edit-link">',
+				'</span>'
+			);
+			echo '</div>';
+
+			if ( has_category() || has_tag() ) {
+
+				echo '<div class="post-taxonomies">';
+
+				/* translators: used between list items, there is a space after the comma. */
+				$categories_list = get_the_category_list( __( ', ', 'twentytwentyone' ) );
+				if ( $categories_list ) {
+					printf(
+						/* translators: %s: list of categories. */
+						'<span class="cat-links">' . esc_html__( 'Categorized as %s', 'twentytwentyone' ) . ' </span>',
+						$categories_list // phpcs:ignore WordPress.Security.EscapeOutput
+					);
+				}
+
+				/* translators: used between list items, there is a space after the comma. */
+				$tags_list = get_the_tag_list( '', __( ', ', 'twentytwentyone' ) );
+				if ( $tags_list ) {
+					printf(
+						/* translators: %s: list of tags. */
+						'<span class="tags-links">' . esc_html__( 'Tagged %s', 'twentytwentyone' ) . '</span>',
+						$tags_list // phpcs:ignore WordPress.Security.EscapeOutput
+					);
+				}
+				echo '</div>';
+			}
+		}
 	}
 }
-endif;
+
+if ( ! function_exists( 'twenty_twenty_one_post_thumbnail' ) ) {
+	/**
+	 * Displays an optional post thumbnail.
+	 *
+	 * Wraps the post thumbnail in an anchor element on index views, or a div
+	 * element when on single views.
+	 *
+	 * @since Twenty Twenty-One 1.0
+	 *
+	 * @return void
+	 */
+	function twenty_twenty_one_post_thumbnail() {
+		if ( ! twenty_twenty_one_can_show_post_thumbnail() ) {
+			return;
+		}
+		?>
+
+		<?php if ( is_singular() ) : ?>
+
+			<figure class="post-thumbnail">
+				<?php
+				// Lazy-loading attributes should be skipped for thumbnails since they are immediately in the viewport.
+				the_post_thumbnail( 'post-thumbnail', array( 'loading' => false ) );
+				?>
+				<?php if ( wp_get_attachment_caption( get_post_thumbnail_id() ) ) : ?>
+					<figcaption class="wp-caption-text"><?php echo wp_kses_post( wp_get_attachment_caption( get_post_thumbnail_id() ) ); ?></figcaption>
+				<?php endif; ?>
+			</figure><!-- .post-thumbnail -->
+
+		<?php else : ?>
+
+			<figure class="post-thumbnail">
+				<a class="post-thumbnail-inner alignwide" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1">
+					<?php the_post_thumbnail( 'post-thumbnail' ); ?>
+				</a>
+				<?php if ( wp_get_attachment_caption( get_post_thumbnail_id() ) ) : ?>
+					<figcaption class="wp-caption-text"><?php echo wp_kses_post( wp_get_attachment_caption( get_post_thumbnail_id() ) ); ?></figcaption>
+				<?php endif; ?>
+			</figure>
+
+		<?php endif; ?>
+		<?php
+	}
+}
+
+if ( ! function_exists( 'twenty_twenty_one_the_posts_navigation' ) ) {
+	/**
+	 * Print the next and previous posts navigation.
+	 *
+	 * @since Twenty Twenty-One 1.0
+	 *
+	 * @return void
+	 */
+	function twenty_twenty_one_the_posts_navigation() {
+		the_posts_pagination(
+			array(
+				'before_page_number' => esc_html__( 'Page', 'twentytwentyone' ) . ' ',
+				'mid_size'           => 0,
+				'prev_text'          => sprintf(
+					'%s <span class="nav-prev-text">%s</span>',
+					is_rtl() ? twenty_twenty_one_get_icon_svg( 'ui', 'arrow_right' ) : twenty_twenty_one_get_icon_svg( 'ui', 'arrow_left' ),
+					wp_kses(
+						__( 'Newer <span class="nav-short">posts</span>', 'twentytwentyone' ),
+						array(
+							'span' => array(
+								'class' => array(),
+							),
+						)
+					)
+				),
+				'next_text'          => sprintf(
+					'<span class="nav-next-text">%s</span> %s',
+					wp_kses(
+						__( 'Older <span class="nav-short">posts</span>', 'twentytwentyone' ),
+						array(
+							'span' => array(
+								'class' => array(),
+							),
+						)
+					),
+					is_rtl() ? twenty_twenty_one_get_icon_svg( 'ui', 'arrow_left' ) : twenty_twenty_one_get_icon_svg( 'ui', 'arrow_right' )
+				),
+			)
+		);
+	}
+}

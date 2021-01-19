@@ -1,27 +1,25 @@
-/* global wp, jQuery */
+/* global twentytwentyoneGetHexLum */
 
-( function( $, api ) {
-	$( document ).ready( function() {
-		// Make it possible to reset the color based on a radio input's value.
-		// `active` can be either `custom` or `default`.
-		api.control( 'accent_hue_active' ).setting.bind( function( active ) {
-			var control = api.control( 'accent_hue' ); // Get the accent hue control.
+( function() {
+	// Wait until the customizer has finished loading.
+	wp.customize.bind( 'ready', function() {
+		// Hide the "respect_user_color_preference" setting if the background-color is dark.
+		if ( 127 > twentytwentyoneGetHexLum( wp.customize( 'background_color' ).get() ) ) {
+			wp.customize.control( 'respect_user_color_preference' ).deactivate();
+			wp.customize.control( 'respect_user_color_preference_notice' ).deactivate();
+		}
 
-			if ( 'custom' === active ) {
-				// Activate the hue color picker control and focus it.
-				control.activate( {
-					completeCallback: function() {
-						control.focus();
-					}
-				} );
-			} else {
-				// If the `custom` option isn't selected, deactivate the hue color picker and set a default.
-				control.deactivate( {
-					completeCallback: function() {
-						control.setting.set( control.params.defaultValue );
-					}
-				} );
-			}
+		// Handle changes to the background-color.
+		wp.customize( 'background_color', function( setting ) {
+			setting.bind( function( value ) {
+				if ( 127 > twentytwentyoneGetHexLum( value ) ) {
+					wp.customize.control( 'respect_user_color_preference' ).deactivate();
+					wp.customize.control( 'respect_user_color_preference_notice' ).activate();
+				} else {
+					wp.customize.control( 'respect_user_color_preference' ).activate();
+					wp.customize.control( 'respect_user_color_preference_notice' ).deactivate();
+				}
+			} );
 		} );
 	} );
-}( jQuery, wp.customize ) );
+}() );
