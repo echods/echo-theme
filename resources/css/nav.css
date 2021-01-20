@@ -1,0 +1,12 @@
+.navbar-brand {
+    width: 150px;
+    img {
+        width: 100%;
+    }
+}
+
+.navbar-nav {
+    .menu-item {
+        @extend .nav-item;
+    }
+}

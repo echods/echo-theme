@@ -11,7 +11,9 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'assets/js')
+mix.autoload({jquery: ['$', 'window.jQuery']})
+    .js('resources/js/app.js', 'assets/js')
     .postCss('resources/css/app.css', 'assets/css', [
-        require('postcss-import')
+        require('postcss-nested'),
+        require('postcss-import'),
     ])

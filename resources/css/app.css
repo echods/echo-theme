@@ -1,13 +1,10 @@
-@import 'colors';
 @import 'variables';
-
 @import 'bootstrap/dist/css/bootstrap';
+@import 'nav';
 
-@import 'accessibility';
-
-/*
-@import 'functions';
-@import 'mixins';
-*/
-
+/* Load last */
 @import 'styles';
+
+.test {
+    /*font-size: rem(16);*/
+}

@@ -1,1 +1,8 @@
-/* Any js oerrides here */
+(function($){
+
+    /* Any js overrides here
+        $() // already available
+    */
+
+
+})(jQuery)

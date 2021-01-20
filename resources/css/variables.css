@@ -1,12 +1,12 @@
-$border-radius-base: 0;
-$border-radius-large: 0;
-$border-radius-small: 0;
+/*
+https://blog.logrocket.com/how-to-use-css-variables-like-a-pro/
+To declare a variable in CSS, come up with a name for the variable,
+then append two hyphens (–) as the prefix.
 
-$navbar-height: 60px;
-$navbar-default-bg: $color-primary;
-$navbar-default-border: $color-primary;
-$navbar-default-link-color: $color-primary-highlight;
-$navbar-margin-bottom: 0;
+To call do the following:
+background-color: var(--brand-color);
+*/
 
-$icon-font-path: '../fonts/bootstrap/';
-$fa-font-path:  '../fonts/font-awesome';
+:root {
+    --brand-color: #00000;
+}
