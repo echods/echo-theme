@@ -14,6 +14,9 @@ if (version_compare($GLOBALS['wp_version'], '5.3', '<')) {
     require get_template_directory() . '/includes/back-compat.php';
 }
 
+// Theme starter functions.
+require get_template_directory() . '/includes/settings/theme.php';
+
 // Helper functions.
 require get_template_directory() . '/includes/helpers.php';
 
