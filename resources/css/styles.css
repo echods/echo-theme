@@ -1,0 +1,13 @@
+body {
+    background-image: url('../img/echo-logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navbar-brand {
+  width:150px;
+  img {
+    width:100%;
+  }
+}

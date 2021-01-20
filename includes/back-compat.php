@@ -7,21 +7,22 @@
  * relies on many newer functions and markup changes introduced in 5.3.
  *
  * @package WordPress
- * @subpackage Twenty_Twenty_One
- * @since Twenty Twenty-One 1.0
+ * @subpackage Echo
+ * @since Echo 1.0
  */
 
 /**
  * Display upgrade notice on theme switch.
  *
- * @since Twenty Twenty-One 1.0
+ * @since Echo 1.0
  *
  * @return void
  */
-function twenty_twenty_one_switch_theme() {
-	add_action( 'admin_notices', 'twenty_twenty_one_upgrade_notice' );
+function echo_switch_theme()
+{
+    add_action('admin_notices', 'echo_upgrade_notice');
 }
-add_action( 'after_switch_theme', 'twenty_twenty_one_switch_theme' );
+add_action('after_switch_theme', 'echo_switch_theme');
 
 /**
  * Adds a message for unsuccessful theme switch.
@@ -29,64 +30,67 @@ add_action( 'after_switch_theme', 'twenty_twenty_one_switch_theme' );
  * Prints an update nag after an unsuccessful attempt to switch to
  * the theme on WordPress versions prior to 5.3.
  *
- * @since Twenty Twenty-One 1.0
+ * @since Echo 1.0
  *
  * @global string $wp_version WordPress version.
  *
  * @return void
  */
-function twenty_twenty_one_upgrade_notice() {
-	echo '<div class="error"><p>';
-	printf(
-		/* translators: %s: WordPress Version. */
-		esc_html__( 'This theme requires WordPress 5.3 or newer. You are running version %s. Please upgrade.', 'twentytwentyone' ),
-		esc_html( $GLOBALS['wp_version'] )
-	);
-	echo '</p></div>';
+function echo_upgrade_notice()
+{
+    echo '<div class="error"><p>';
+    printf(
+        /* translators: %s: WordPress Version. */
+        esc_html__('This theme requires WordPress 5.3 or newer. You are running version %s. Please upgrade.', 'echo'),
+        esc_html($GLOBALS['wp_version'])
+    );
+    echo '</p></div>';
 }
 
 /**
  * Prevents the Customizer from being loaded on WordPress versions prior to 5.3.
  *
- * @since Twenty Twenty-One 1.0
+ * @since Echo 1.0
  *
  * @global string $wp_version WordPress version.
  *
  * @return void
  */
-function twenty_twenty_one_customize() {
-	wp_die(
-		sprintf(
-			/* translators: %s: WordPress Version. */
-			esc_html__( 'This theme requires WordPress 5.3 or newer. You are running version %s. Please upgrade.', 'twentytwentyone' ),
-			esc_html( $GLOBALS['wp_version'] )
-		),
-		'',
-		array(
-			'back_link' => true,
-		)
-	);
+function echo_customize()
+{
+    wp_die(
+        sprintf(
+            /* translators: %s: WordPress Version. */
+            esc_html__('This theme requires WordPress 5.3 or newer. You are running version %s. Please upgrade.', 'echo'),
+            esc_html($GLOBALS['wp_version'])
+        ),
+        '',
+        array(
+            'back_link' => true,
+        )
+    );
 }
-add_action( 'load-customize.php', 'twenty_twenty_one_customize' );
+add_action('load-customize.php', 'echo_customize');
 
 /**
  * Prevents the Theme Preview from being loaded on WordPress versions prior to 5.3.
  *
- * @since Twenty Twenty-One 1.0
+ * @since Echo 1.0
  *
  * @global string $wp_version WordPress version.
  *
  * @return void
  */
-function twenty_twenty_one_preview() {
-	if ( isset( $_GET['preview'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-		wp_die(
-			sprintf(
-				/* translators: %s: WordPress Version. */
-				esc_html__( 'This theme requires WordPress 5.3 or newer. You are running version %s. Please upgrade.', 'twentytwentyone' ),
-				esc_html( $GLOBALS['wp_version'] )
-			)
-		);
-	}
+function echo_preview()
+{
+    if (isset($_GET['preview'])) { // phpcs:ignore WordPress.Security.NonceVerification
+        wp_die(
+            sprintf(
+                /* translators: %s: WordPress Version. */
+                esc_html__('This theme requires WordPress 5.3 or newer. You are running version %s. Please upgrade.', 'echo'),
+                esc_html($GLOBALS['wp_version'])
+            )
+        );
+    }
 }
-add_action( 'template_redirect', 'twenty_twenty_one_preview' );
+add_action('template_redirect', 'echo_preview');
