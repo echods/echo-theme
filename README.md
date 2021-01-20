@@ -1,31 +1,32 @@
 # Echo Wordpress Template
 
-### Author:
+## Author:
 
 Isaac Castillo ( @ icemancast / echods.com )
 
-### Summary
-Echo Wordpress Template for use as a starting template for building custom themes. Uses SCSS and AutoPrefixr, HTML5 Bootstrap 4 , and Webpack for all processing tasks.Tested up to WordPress 4.0
+## Summary
 
-### Usage
-The theme is setup to use Webpack to compile SCSS (with source maps), run it through AutoPrefixr, concatenate and minify JavaScript and have a support for ES6, optimize images, optimize fonts.
+Echo Wordpress Template for use as a starting template for building custom themes. It uses laravel-mix and compiles with postCss and AutoPrefixr, HTML5 Bootstrap 4 , and Webpack for all processing tasks.
 
-**Echo Wordpress Template requires [Node.js](https://nodejs.org/) to run.**
+## Usage
+
+The theme is setup to use Webpack to compile with postCss (with source maps), run it through AutoPrefixr, concatenate and minify JavaScript and have a support for ES6, optimize images, optimize fonts.
 
 First; download/clone the template
 
-```
-git clone https://github.com/echods/echo-theme.git
+```sh
+$ git clone https://github.com/echods/echo-theme.git echo
 ```
 
 ```sh
 $ cd echo-theme
 $ npm install
 ```
-Then change your resources
-```
+
+## Change your resources
+
 echo-theme/resources/assets/
-  echo-theme/resources/assets/sass/ (Your SCSS files)
+echo-theme/resources/assets/css/ (Your SCSS files)
   echo-theme/resources/assets/js (Javascript files and vendors)
   echo-theme/resources/assets/img (Images)
   echo-theme/resources/assets/fonts (Fonts)
@@ -52,6 +53,3 @@ npm run production
   * No more browser cache problem
   * **This is a really cool feature**
 * & Much much more
-
-### Contributing:
-Anyone and everyone is welcome to contribute! Check out the [Contributing Guidelines](https://github.com/mattbanks/WordPress-Starter-Theme/blob/master/CONTRIBUTING.md).
