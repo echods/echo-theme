@@ -29,6 +29,9 @@ require get_template_directory() . '/includes/settings/register-navs.php';
 // Load registered navigations
 require get_template_directory() . '/includes/settings/register-widgets.php';
 
+// Load load advanced custom fields settings
+require get_template_directory() . '/includes/settings/plugins/advanced-custom-fields.php';
+
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *

@@ -3,7 +3,16 @@
 /**
  * Advanced custom fields global options
  */
-if( function_exists('acf_add_options_page') ) {
+if (function_exists('acf_add_options_page')) {
+
+    /*
+        Add settings to custom post type menu
+     */
+    acf_add_options_sub_page(array(
+        'page_title'     => 'Resource Settings',
+        'menu_title'    => 'Settings',
+        'parent_slug'    => 'edit.php?post_type=echo_team',
+    ));
 
     acf_add_options_page(array(
         'page_title'    => 'Theme General Settings',
@@ -30,5 +39,4 @@ if( function_exists('acf_add_options_page') ) {
         'menu_title'    => 'Global',
         'parent_slug'   => 'theme-general-settings',
     ));
-
 }
