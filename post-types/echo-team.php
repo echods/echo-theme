@@ -4,10 +4,10 @@ if (!defined('ECHO_TEAM_DIR')) {
     define('ECHO_TEAM_DIR', dirname(__FILE__));
 }
 
- //Require files
-require_once ECHO_TEAM_DIR . '/functions.php';
-require_once ECHO_TEAM_DIR . '/admin-columns.php';
-
+/**
+ * Post Type Setting
+ * @return null
+ */
 function echo_team_posttypes()
 {
     $labels = array(
@@ -48,6 +48,10 @@ function echo_team_posttypes()
 }
 add_action('init', 'echo_team_posttypes');
 
+/**
+ * Flush rewrite rules
+ * @return null
+ */
 function echo_team_flush()
 {
     // First, we "add" the custom post type via the above written function.
@@ -61,3 +65,38 @@ function echo_team_flush()
     flush_rewrite_rules();
 }
 register_activation_hook(__FILE__, 'echo_team_flush');
+
+/**
+ * Change title
+ * @return string
+ */
+function echo_team_title($title)
+{
+    $screen = get_current_screen();
+    return ('echo_team' == $screen->post_type) ? 'Enter Team Title' : $title;
+}
+add_filter('enter_title_here', 'echo_team_title');
+
+/**
+ * Get all team query
+ * @return object
+ */
+function get_echo_team()
+{
+    $args = [
+    'post_type' => 'echo_team',
+    'posts_per_page' => -1, // Unlimited query set this number
+  ];
+
+    return new WP_Query($args);
+}
+
+/**
+ * Get all resources image setup
+ * @return null
+ */
+add_action('after_setup_theme', 'echo_resources_image_setup');
+function echo_resources_image_setup()
+{
+    add_image_size('echo-resources', 400, 600, array( 'center', 'top' )); // (cropped)
+}

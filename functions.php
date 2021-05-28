@@ -11,26 +11,26 @@
 
 // This theme requires WordPress 5.3 or later.
 if (version_compare($GLOBALS['wp_version'], '5.3', '<')) {
-    require get_template_directory() . '/includes/back-compat.php';
+    require get_template_directory() . '/settings/back-compat.php';
 }
 
 // Theme starter functions.
-require get_template_directory() . '/includes/settings/theme.php';
+require get_template_directory() . '/settings/theme.php';
 
 // Helper functions.
-require get_template_directory() . '/includes/helpers.php';
+require get_template_directory() . '/settings/helpers.php';
 
 // Boostrap Walker
-require get_template_directory() . '/includes/settings/class-bootstrap-navwalker.php';
+require get_template_directory() . '/settings/class-bootstrap-navwalker.php';
 
 // Load registered navigations
-require get_template_directory() . '/includes/settings/register-navs.php';
+require get_template_directory() . '/settings/register-navs.php';
 
 // Load registered navigations
-require get_template_directory() . '/includes/settings/register-widgets.php';
+require get_template_directory() . '/settings/register-widgets.php';
 
 // Load load advanced custom fields settings
-require get_template_directory() . '/includes/settings/plugins/advanced-custom-fields.php';
+require get_template_directory() . '/settings/plugins/advanced-custom-fields.php';
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -87,7 +87,7 @@ function echo_scripts()
 }
 add_action('wp_enqueue_scripts', 'echo_scripts');
 
-/**
- * Add in custom post types
- */
-require get_template_directory() . '/includes/post-types/team/team.php';
+/*
+* All Custom Post Types
+*/
+require get_template_directory() . '/post-types/types.php';
