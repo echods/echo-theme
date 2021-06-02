@@ -1,0 +1,18 @@
+version: 2.0
+jobs:
+  build:
+    machine:
+      image: circleci/classic:latest
+    branches:
+          only:
+            - master
+    steps:
+      - run:
+          name: Install LFTP
+          command: |
+            sudo apt-get update;
+            sudo apt-get install lftp;
+      - checkout
+      - run:
+          name: Send Via SFTP
+          command: lftp sftp://${username}:${password}@sftp.pressable.com -e "mirror -v -R --exclude .git/ --exclude .circleci/ ./ ./wp-content/; quit"
