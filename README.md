@@ -17,6 +17,7 @@ $ yarn
 ```
 
 ## Folder structure
+- `.circleci` - Circle CI deployment integration.
 - `acf-json` - For Advanced Custom Fields Pro json data files to be hosted.
 - `assets` - Where all assets compile to and are referenced for the front end.
 - `flexibles` - Flexible content includes to create. We create these custom depending on the project.
