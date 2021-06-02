@@ -1,5 +1,3 @@
 <?php
 
-if (get_row_layout() == 'hero'):
-    $backroundColor = get_sub_field('backround_color');
-endif;
+    $file = get_sub_field('file');

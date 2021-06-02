@@ -10,19 +10,20 @@
 
 get_header();
 
+$flexibleDirectory = get_template_directory() . '/flexibles';
+
 if (have_rows('content_modules')):
     while (have_rows('content_modules')): the_row();
 
-        /**
-         * Scan for flexible contents
-         */
-        $directory = get_template_directory() . '/flexibles';
-        $files = scandir($directory);
-        $files = array_diff($files, ['.','..']);
+        // Case: Paragraph
+        if (get_row_layout() == 'paragraph'):
+            require "{$flexibleDirectory}/paragraph.php";
 
-        foreach ($files as $file) {
-            require "{$directory}/{$file}";
-        }
+        // Case: Hero
+        elseif (get_row_layout() == 'hero'):
+            require "{$flexibleDirectory}/hero.php";
+
+        endif;
 
     endwhile;
 endif;
