@@ -1,56 +1,56 @@
 # Echo Wordpress Template
 
-## Author:
-
-Isaac Castillo ( @ icemancast / echods.com )
-
 ## Summary
 
-Echo Wordpress Template for use as a starting template for building custom themes. It uses laravel-mix and compiles with postCss and AutoPrefixr, HTML5 Bootstrap 4 , and Webpack for all processing tasks.
+Echo Wordpress Template for use as a starting template for building custom themes. It uses laravel-mix and compiles with postCss and AutoPrefixr, HTML5 Bootstrap 5, and Webpack for all processing tasks. The theme is setup to use Webpack to compile with postCss (with source maps), run it through AutoPrefixr.
 
 ## Usage
 
-The theme is setup to use Webpack to compile with postCss (with source maps), run it through AutoPrefixr, concatenate and minify JavaScript and have a support for ES6, optimize images, optimize fonts.
+Make sure you have nvm installed and reference the `.nvmrc` file that is in the root of the project.
 
-First; download/clone the template
-
-```sh
-$ git clone https://github.com/echods/echo-theme.git echo
-```
+First; download/clone the template. Then rename the folder to `echo-theme`. Then run the following:
 
 ```sh
 $ cd echo-theme
-$ npm install
+$ nvm use
+$ yarn
 ```
 
-## Change your resources
+## Folder structure
+- `acf-json` - For Advanced Custom Fields Pro json data files to be hosted.
+- `assets` - Where all assets compile to and are referenced for the front end.
+- `flexibles` - Flexible content includes to create. We create these custom depending on the project.
+- `partials` - Where we keep includes for any template based code. Things like headers, nav that we need on multiple files.
+- `post-types` - Where custom post types will go.
+- `resources` - The source for all css, js changes. This is where most of our work is pertaining to the front end.
+- `settings` - Any WordPress framework settings and functions to include inside the `functions.php` file.
+- `templates` - Any templates required for the WordPress backend.
+- `.nvmrc` - Node version to use with nvm.
+- `404.php` - Template file to use for 404 pages.
+- `footer.php` - File to use for the bottom of the template page.
+- `front-page.php` - Use this file for the home page unless you are using flexible template file in `templates/template-flexible.php`.
+- `functions.php` - The core of all functions will go here. WordPress theme requirement.
+- `index.php` - Use this file for the blog archive content and as a catch all for any other content types.
+- `mix-manifest.json` - Manifest of assets compiled.
+- `package.json` - Node packages.
+- `screenshot.png` - Screenshot of log and screenshot that shows in dashboard for theme.
+- `search.png` - Search archive file. Will remove in future.
+- `searchform.png` - Use as an example to do search form. Will replace with function based call.
+- `style.css` - Used for theme settings and config.
+- `webpack.mix.js` - Webpack mix settings.
+- `yarn.lock` - Yarn lock file for node package verions.
 
-- echo-theme/resources/assets/
-- echo-theme/resources/assets/css/ (Your SCSS files)
-- echo-theme/resources/assets/js (Javascript files and vendors)
-- echo-theme/resources/assets/img (Images)
-- echo-theme/resources/assets/fonts (Fonts)
-
-```
 For development environments your need to run this command
+
 ```
-npm run watch
+yarn watch
 ```
+
 For production environments you need to run
+
 ```
-npm run production
+yarn production
 ```
-### Features
-* Normalized stylesheet for cross-browser compatibility using Normalize.css version 3 (IE8+)
-* Easy to customize
-* Bootstrap 4 included and you can add or remove any bootstrap components
-* Media Queries can be nested in each selector using SASS
-* SCSS with plenty of mixins ready to go (also bootstrap mixins included)
-* Example div written in _styles.scss for Bootstrap 4 syntax reference
-* Webpack for processing all SASS, JavaScript and images.
-* Webpack to support the modern JavaScript ES6 (Classes , Modules .....)
-* Webpack generates **new files** for Styles and Javascript :
-  * Files With **different names** and the theme has a capability **to detect and load** the correct files each time.
-  * No more browser cache problem
-  * **This is a really cool feature**
-* & Much much more
+
+### TODO
+- Fix how images are mapped and referenced to `images` instead of `assets/img`
