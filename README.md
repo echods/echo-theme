@@ -25,11 +25,12 @@ $ npm install
 
 ## Change your resources
 
-echo-theme/resources/assets/
-echo-theme/resources/assets/css/ (Your SCSS files)
-  echo-theme/resources/assets/js (Javascript files and vendors)
-  echo-theme/resources/assets/img (Images)
-  echo-theme/resources/assets/fonts (Fonts)
+- echo-theme/resources/assets/
+- echo-theme/resources/assets/css/ (Your SCSS files)
+- echo-theme/resources/assets/js (Javascript files and vendors)
+- echo-theme/resources/assets/img (Images)
+- echo-theme/resources/assets/fonts (Fonts)
+
 ```
 For development environments your need to run this command
 ```

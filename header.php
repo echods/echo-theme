@@ -26,7 +26,7 @@
 <body <?php body_class('d-flex flex-column h-100'); ?>>
 <?php wp_body_open(); ?>
 
-<?php get_template_part('template-parts/header/site-header'); ?>
+<?php get_template_part('partials/header/site-header'); ?>
 
 <!-- Begin page content -->
 <main role="main" class="flex-shrink-0">
