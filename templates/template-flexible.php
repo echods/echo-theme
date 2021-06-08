@@ -23,6 +23,15 @@ if (have_rows('content_modules')):
         elseif (get_row_layout() == 'hero'):
             require "{$flexibleDirectory}/hero.php";
 
+        // Case : Hero Background Image CTA
+        elseif (get_row_layout() == 'hero_image_cta'):
+            require "{$flexibleDirectory}/hero_image_cta.php";
+
+         // Case : Hero Background Image CTA & Image Left
+         elseif (get_row_layout() == 'hero_text_image'):
+            require "{$flexibleDirectory}/hero_text_image.php";
+            
+            
         endif;
 
     endwhile;
