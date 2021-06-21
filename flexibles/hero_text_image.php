@@ -6,13 +6,24 @@
     $cta_hero = $hero_info['cta_hero'];
     $background_image = get_sub_field('background_image');
     $image_right = get_sub_field('image_right');
-
+    $choose_style = get_sub_field('choose_style');
+    $bg_color = get_sub_field('background_color');
+    $image_position = get_sub_field('image_position');
+    $align = get_sub_field('text_align');
 ?>
 
-<div class="px-4 py-5 text-left" style="background="<?php echo $background_image; ?>">
+<div class="px-4 py-5 text-<?php echo $align; ?>" style="background:<?php if($choose_style == 'image'): ?>url(<?php echo $background_image; ?>)<?php elseif($choose_style == 'color'): echo $bg_color; endif; ?>">
     <div class="container">
         <div class="row d-flex align-items-center">
-            <div class="col-6">
+            <?php if($image_position == 'left'): ?>  
+            <div class="col-md-6 col-12">
+                <?php if($image_right): ?>       
+                    <img src="<?php echo $image_right; ?>" class="img-fluid w-100" alt="img-fluid">
+                <?php endif ?>
+            </div>
+            <?php endif ?>
+
+            <div class="col-md-6 col-12 ">
                 <h1 class="display-5 fw-bold"><?php echo $title; ?></h1>
                 
                 <p class="lead mb-4"><?php echo $paragraph_hero; ?></p>
@@ -24,9 +35,10 @@
                 </div>
             
             </div>
-            <div class="col-6">
-                <?php if($image_right): ?>       
-                    <img src="<?php echo $image_right; ?>" class="img-fluid" alt="img-fluid">
+
+            <div class="col-md-6 col-12">
+                <?php if($image_position == 'right'): ?>        
+                    <img src="<?php echo $image_right; ?>" class="img-fluid w-100" alt="img-fluid">
                 <?php endif ?>
             </div>
         </div>

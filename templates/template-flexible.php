@@ -30,8 +30,22 @@ if (have_rows('content_modules')):
          // Case : Hero Background Image CTA & Image Left
          elseif (get_row_layout() == 'hero_text_image'):
             require "{$flexibleDirectory}/hero_text_image.php";
+
+
+        // Case : Feature Section   
+        elseif (get_row_layout() == 'features_section'):
+            require "{$flexibleDirectory}/feature_section.php";
+
+        // Case : Simple Paragraph Section   
+        elseif (get_row_layout() == 'simple_section_paragraph'):
+            require "{$flexibleDirectory}/simple_paragraph.php";
+
+        // Case : Accordion List    
+        elseif (get_row_layout() == 'accordion_list'):
+            require "{$flexibleDirectory}/accordion_list.php";
+
             
-            
+                
         endif;
 
     endwhile;
